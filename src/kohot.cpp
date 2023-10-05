@@ -1,6 +1,5 @@
 #include "kohot.hpp"
 
-#include "groups_manager_menu.hpp"
 #include "json_utils.hpp"
 
 #include <iostream>
