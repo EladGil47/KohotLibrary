@@ -1,5 +1,5 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.16)
-project(Kohot VERSION 0.1.0 LANGUAGES CXX)
+project(KohotLibrary VERSION 0.1.0 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 
 add_library(KOHOT_LIB  
@@ -32,31 +32,26 @@ target_include_directories(KOHOT_LIB PUBLIC
     ${PROJECT_SOURCE_DIR}/include
 )
 
+set(CONSOLE_APP_KOHOT_LIB_SOURCES
+main.cpp
+src/menu.cpp  
+src/group_menu.cpp 
+src/final_menu.cpp
+src/groups_manager_menu.cpp  
+src/players_menu.cpp  
+include/groups_manager_menu.hpp  
+include/group_menu.hpp  
+include/final_menu.hpp  
+include/menu.hpp  
+include/players_menu.hpp  
+include/user_interaction.hpp  
+)
+add_executable(ConsoleAppKohot ${CONSOLE_APP_KOHOT_LIB_SOURCES})
 
-# SET(CREATE_CONSOLE_APP true)
-# if(${CREATE_CONSOLE_APP})
+target_include_directories(ConsoleAppKohot PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
 
-# set(CONSOLE_APP_KOHOT_LIB_SOURCES
-# src/menu.cpp  
-# src/group_menu.cpp 
-# src/final_menu.cpp
-# src/groups_manager_menu.cpp  
-# src/players_menu.cpp  
-# include/groups_manager_menu.hpp  
-# include/group_menu.hpp  
-# include/final_menu.hpp  
-# include/menu.hpp  
-# include/players_menu.hpp  
-# include/user_interaction.hpp  
-# )
-# add_executable(ConsoleAppKohot ${CONSOLE_APP_KOHOT_LIB_SOURCES})
-
-# target_include_directories(ConsoleAppKohot PUBLIC
-#     ${PROJECT_SOURCE_DIR}/include
-# )
-
-# target_link_libraries(ConsoleAppKohot PRIVATE
-# KOHOT_LIB
-# )
-
-# endif()
+target_link_libraries(ConsoleAppKohot PRIVATE
+KOHOT_LIB
+)
