@@ -27,7 +27,8 @@ include/team.hpp
 include/teams_creator.hpp  
 include/utility_functions.hpp
 )
+message("Found library:" ${CMAKE_CURRENT_SOURCE_DIR})
 
 target_include_directories(KOHOT_LIB PUBLIC
-    ${PROJECT_SOURCE_DIR}/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
