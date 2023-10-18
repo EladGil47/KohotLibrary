@@ -18,8 +18,8 @@ void Kohot::loadGroups()
 			const Group::Config group_config = {
 				static_cast<uint16_t>(m_groups_collection->getSize()),
 				group["Name"].get<std::string>(),
-					 3,
-					 5
+				group["Teams"].get<uint16_t>(),
+				group["Players_in_team"].get<uint16_t>(),
 			};
 			std::shared_ptr<Group> group_ptr = std::make_shared <Group>(group_config);
 
@@ -52,6 +52,9 @@ void Kohot::saveGroups() {
 
 		json_group["Id"] = group->getId();
 		json_group["Name"] = group->getName();
+		json_group["Teams"] = group->getTeamsAmount();
+		json_group["Players_in_team"] = group->getPlayersInTeamAmount();
+
 		nlohmann::json& players_array = json_group["Players"];
 		players_array = nlohmann::json::array();
 			
