@@ -29,7 +29,7 @@ std::shared_ptr<std::vector<Team>> TeamsCreator::createTeams(std::vector<std::sh
 		}
 		else
 		{
-			for (int team_index = 2; team_index >= 0;team_index--)
+			for (int team_index = teams_amount-1; team_index >= 0;team_index--)
 			{
 				(*m_teams)[team_index].addPlayer(players[i]);
 				if (team_index == 0)
