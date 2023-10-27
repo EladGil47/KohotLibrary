@@ -36,18 +36,18 @@ public:
 
 	void changeName();
 
-	//void createTeams(uint16_t teams_amount, uint16_t players_in_team_amount);
 	void displayGroup();
 
 	void addPlayer();
 	void deletePlayer(size_t index );
 	size_t getNumOfPlayers();
 
+	std::shared_ptr<Player> getPlayerByName(std::string name);
+
+
 private:
 	Group::Config m_config;
 	PlayersCollection m_players_collection;
-
-	//std::vector<std::shared_ptr<Player>> chooseComingPlayers(uint16_t coming_players_amount);
 };
 
 #endif // KOHOT_GROUP_HPP

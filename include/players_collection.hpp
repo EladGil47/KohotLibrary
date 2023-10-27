@@ -36,7 +36,7 @@ public:
 			}
 			if (!is_found)
 			{
-			std::cerr << "Can not find player with id" << id << "in Players Collection" ; 
+			std::cerr << "Can not find player with id: " << id << " in Players Collection" ; 
 			}
 		}
 		else{

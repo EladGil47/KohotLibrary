@@ -1,11 +1,5 @@
 #include "group.hpp"
-
-//#include "teams_creator.hpp" 
-//#include "players_sorter.hpp"
-//#include <iomanip> 
-
 #include <iostream>
-
 
 Group::Group(const Group::Config& config)  
 {
@@ -109,26 +103,16 @@ void Group::setPlayersCollection(PlayersCollection players_collection)
 {
 	m_players_collection = players_collection;
 }
-//std::vector<std::shared_ptr<Player>> Group::chooseComingPlayers(uint16_t coming_players_amount) {
-//
-//	std::vector<std::shared_ptr<Player>> coming_players;
-//
-//	PlayersCollection players = m_players_collection;
-//	for (uint16_t chosen_count = 0;chosen_count < coming_players_amount; chosen_count++)
-//	{
-//		std::cout << "Creating Teams :) \nPlease choose a player from the menu  ";
-//		Menu show_players_menu;
-//		std::vector<std::string> options = players.getPlayersNames();
-//		show_players_menu.initializeOptions(options);
-//		size_t index = static_cast<size_t> (show_players_menu.getChoiceFromUser() - 1);
-//		coming_players.push_back(players.getItem(index));
-//		players.deleteItem(index);
-//	}
-//	return coming_players;
-//}
 
-//void Group::createTeams(uint16_t teams_amount,uint16_t players_in_team_amount)
-//{
-//	const uint16_t COMING_PLAYERS_AMOUNT = teams_amount * players_in_team_amount;
-//	TeamsCreator::createTeams(chooseComingPlayers(COMING_PLAYERS_AMOUNT), teams_amount, players_in_team_amount);
-//}
+std::shared_ptr<Player> Group::getPlayerByName(std::string name)
+{
+	std::shared_ptr<Player> ret_player = nullptr;
+	for(std::shared_ptr<Player> player : getPlayersCollection().getCollection())
+	{
+		if(player->getName() == name)
+		{
+			ret_player = player;
+		}
+	}
+	return ret_player;
+}

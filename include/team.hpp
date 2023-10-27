@@ -3,19 +3,29 @@
 
 #include "players_collection.hpp"
 
-class Team 
+class Team
 {
 public:
 	Team();
-	// PlayersCollection& getPlayersCollectionRef();
-	// PlayersCollection getPlayersCollection();
+
+	Team(uint16_t id);
 	std::shared_ptr<PlayersCollection> getPlayersCollection();
 	void addPlayer(std::shared_ptr<Player> player);
+	void removePlayer(uint16_t player_id);
+
 	double getAverageRate();
+	void setName(std::string name);
+	void setId(uint16_t id);
+	size_t getNumOfPlayers();
+	uint16_t getId();
+	std::string getName();
 
 	void displayTeam();
-private :
+
+private:
 	std::shared_ptr<PlayersCollection> m_players_collection;
+	std::string m_name;
+	uint16_t m_id ;
 };
 
-#endif //KOHOT_TEAM_HPP
+#endif // KOHOT_TEAM_HPP

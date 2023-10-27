@@ -3,10 +3,14 @@
 
 #include <iostream>
 
-std::shared_ptr<std::vector<Team>> TeamsCreator::createTeams(std::vector<std::shared_ptr<Player>> players, const uint16_t teams_amount, const uint16_t players_in_team_amount)
+std::shared_ptr<std::vector<std::shared_ptr<Team>>> TeamsCreator::createTeams(std::vector<std::shared_ptr<Player>> players, const uint16_t teams_amount, const uint16_t players_in_team_amount)
 {
-	// Team* m_teams = new Team[teams_amount];
-	std::shared_ptr<std::vector<Team>> m_teams = std::make_shared<std::vector<Team>>(teams_amount);
+
+    std::shared_ptr<std::vector<std::shared_ptr<Team>>> m_teams = std::make_shared<std::vector<std::shared_ptr<Team>>>();
+
+    for (uint16_t team_index = 0; team_index < teams_amount; team_index++) {
+        m_teams->push_back(std::make_shared<Team>(team_index));
+    }
 
 	PlayersSorter::sortBySortOption(players, PlayersSorter::SortOptions::RATE);
 
@@ -18,7 +22,7 @@ std::shared_ptr<std::vector<Team>> TeamsCreator::createTeams(std::vector<std::sh
 		{
 			for (uint16_t team_index = 0; team_index < teams_amount;team_index++)
 			{
-				(*m_teams)[team_index].addPlayer(players[i]);
+				(*m_teams)[team_index]->addPlayer(players[i]);
 
 				if (team_index == teams_amount-1)
 				{
@@ -31,7 +35,7 @@ std::shared_ptr<std::vector<Team>> TeamsCreator::createTeams(std::vector<std::sh
 		{
 			for (int team_index = teams_amount-1; team_index >= 0;team_index--)
 			{
-				(*m_teams)[team_index].addPlayer(players[i]);
+				(*m_teams)[team_index]->addPlayer(players[i]);
 				if (team_index == 0)
 				{
 					directLeft = true;
