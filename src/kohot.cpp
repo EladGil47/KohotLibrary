@@ -1,6 +1,7 @@
 #include "kohot.hpp"
 
 #include "json_utils.hpp"
+#include "paths.hpp"
 
 #include <iostream>
 
@@ -12,7 +13,7 @@ std::shared_ptr<GroupsCollection> Kohot::getGroupsCollection()
 void Kohot::loadGroups()
 {
 	nlohmann::json groups_data;
-	JsonUtils::deserializeToJson(GROUPS_FILE_PATH, groups_data);
+	JsonUtils::deserializeToJson(Paths::GROUPS_FILE_PATH, groups_data);
 
 	for (const auto& group : groups_data["Groups"]) {
 			const Group::Config group_config = {
@@ -73,6 +74,6 @@ void Kohot::saveGroups() {
 		group_index++; 
 	}
 
-	JsonUtils::serializeJson(data, GROUPS_FILE_PATH);
+	JsonUtils::serializeJson(data, Paths::GROUPS_FILE_PATH);
 }
 

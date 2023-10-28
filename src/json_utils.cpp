@@ -1,5 +1,6 @@
 #include "json_utils.hpp"
 
+#include <iomanip>
 #include <fstream>
 #include <iostream>
 
@@ -8,7 +9,7 @@ void JsonUtils::serializeJson(const nlohmann::json &data, const char* path)
 	std::ofstream groups_outfile(path, std::ofstream::out);
 	if (groups_outfile.is_open())
 	{
-		groups_outfile << data;
+		groups_outfile << std::setw(4) << data;
 	}
 	else {
 		std::cout << "Failed To open " << path;
