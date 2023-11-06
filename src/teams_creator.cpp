@@ -81,7 +81,13 @@ void TeamsCreator::serializeTeams(std::shared_ptr<std::vector<std::shared_ptr<Te
 		}
 		team_index++; 
 	}
-
-	JsonUtils::serializeJson(data, file_path);
-
+    if (file_path == nullptr)
+    {
+        AppPaths app_paths;
+        JsonUtils::serializeJson(data, app_paths.getTeamsFilePath().c_str());
+    }
+    else
+    {
+        JsonUtils::serializeJson(data, file_path);
+    }
 }
