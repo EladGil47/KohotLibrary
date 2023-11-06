@@ -5,6 +5,7 @@
 class Kohot
 {
 public:
+	Kohot();
 
 	std::shared_ptr<GroupsCollection> getGroupsCollection();
 
@@ -19,7 +20,7 @@ public:
 	void saveGroups();
 
 private:
-	std::shared_ptr<GroupsCollection> m_groups_collection = std::make_shared<GroupsCollection>();
+	std::shared_ptr<GroupsCollection> m_groups_collection;
 };
 
 #endif //KOHOT_HPP

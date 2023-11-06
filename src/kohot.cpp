@@ -5,6 +5,11 @@
 
 #include <iostream>
 
+Kohot::Kohot()
+{
+	m_groups_collection = std::make_shared<GroupsCollection>();
+}
+
 std::shared_ptr<GroupsCollection> Kohot::getGroupsCollection()
 {
 	return m_groups_collection;
