@@ -12,7 +12,7 @@ void JsonUtils::serializeJson(const nlohmann::json &data, const char* path)
 		groups_outfile << std::setw(4) << data;
 	}
 	else {
-		std::cout << "Failed To open " << path;
+		std::cout << "Failed To Serialize data to : " << path << std::endl;
 	}
 	groups_outfile.close();
 }
@@ -25,7 +25,7 @@ void JsonUtils::deserializeToJson(const char* path, nlohmann::json & data)
 		groups_infile >> data;
 	}
 	else {
-		std::cout << "Failed To open " << path;
+		std::cout <<  "Failed To deserialize data from : " << path << std::endl;
 	}
 	groups_infile.close();
 }
