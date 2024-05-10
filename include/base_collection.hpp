@@ -2,57 +2,68 @@
 #define BASE_COLLECTION_HPP
 
 #include <iostream>
-#include <vector>
 #include <memory>
+#include <vector>
 
 template <typename T>
 class BaseCollection
 {
-    protected:
-        std::vector<std::shared_ptr<T>> m_collection;
+protected:
+    std::vector<std::shared_ptr<T>> m_collection;
 
-    public:
-        const std::vector<std::shared_ptr<T>> getCollection()
+public:
+    const std::vector<std::shared_ptr<T>> getCollection()
+    {
+        return m_collection;
+    }
+
+    std::vector<std::shared_ptr<T>>& getCollectionRef()
+    {
+        return m_collection;
+    }
+
+    void addItem(std::shared_ptr<T> item)
+    {
+        m_collection.push_back(item);
+    }
+
+    void replaceItem(uint16_t idx, std::shared_ptr<T> item)
+    {
+        m_collection[idx] = item;
+    }
+
+    void cleanItem(uint16_t idx)
+    {
+        m_collection[idx] = nullptr;
+    }
+
+    void deleteItem(size_t index)
+    {
+        if (index >= 0 && index < m_collection.size())
         {
-            return m_collection;
+            m_collection.erase(m_collection.begin() + index);
         }
-
-        std::vector<std::shared_ptr<T>>& getCollectionRef()
+        else
         {
-            return m_collection;
+            throw std::out_of_range("Invalid index. The vector does not have an element at index " + index);
         }
+    }
 
-        void addItem(std::shared_ptr<T> item) 
-        {
-            m_collection.push_back(item);
-        }
+    size_t getSize()
+    {
+        return m_collection.size();
+    }
 
-        void deleteItem(size_t index) 
-        {
-            if (index >= 0 && index < m_collection.size()) {
-                m_collection.erase(m_collection.begin() + index);
-            }
-            else {
-                throw std::out_of_range("Invalid index. The vector does not have an element at index " + index);
-            }
-        }
+    std::shared_ptr<T> getItem(size_t index)
+    {
+        return m_collection[index];
+    }
 
-        size_t getSize() 
-        {
-            return m_collection.size();
-        }
-
-        std::shared_ptr<T> getItem(size_t index)
-        {
-            return m_collection[index];
-        }
-
-        virtual void display() = 0;
-        virtual void createItem()
-        {
-            return;
-        }
-
+    virtual void display() = 0;
+    virtual void createItem()
+    {
+        return;
+    }
 };
 
 #endif // BASE_COLLECTION_HPP
