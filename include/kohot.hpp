@@ -3,6 +3,7 @@
 
 #include "groups_collection.hpp"
 #include "paths.hpp"
+#include "settings.hpp"
 
 class Kohot
 {
@@ -10,21 +11,17 @@ public:
     Kohot();
 
     std::shared_ptr<GroupsCollection> getGroupsCollection();
+    std::shared_ptr<Settings>         getSettings();
 
-    /**
-	 * @brief Load groups from Paths::GROUPS_FILE_PATH to m_groups_collection
-	 */
     void loadGroups();
-
-    /**
-	 * @brief save m_groups_collection on Paths::GROUPS_FILE_PATH
-	 */
     void saveGroups();
 
-    AppPaths app_path;
+    void loadSettings();
 
 private:
     std::shared_ptr<GroupsCollection> m_groups_collection;
+    AppPaths                          m_app_path;
+    std::shared_ptr<Settings>         m_settings;
 };
 
 #endif //KOHOT_HPP
