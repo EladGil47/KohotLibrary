@@ -2,82 +2,89 @@
 
 Player::Player()
 {
-	m_config = { 0,"",0,Player::Role::BALLER };
+    m_config = {0, "", 0, Player::Role::BALLER};
 }
 
-Player::Player( const Player::Config& config)
+Player::Player(const Player::Config& config)
 {
-	m_config.id = config.id;
-	m_config.name = config.name;
-	m_config.role = config.role;
-	m_config.rate = config.rate;
+    m_config.id   = config.id;
+    m_config.name = config.name;
+    m_config.role = config.role;
+    m_config.rate = config.rate;
 }
 
-Player::Role Player::toPlayerRole(std::string role_text) {
-	Player::Role role;
-	if (role_text == "GK")
-	{
-		role = Player::Role::GK;
-	}
-	else if (role_text == "Baller")
-	{
-		role = Player::Role::BALLER;
-	}
-	else
-	{
-		role = Player::Role::BALLER;
-	}
-	return role;
+Player::Role Player::toPlayerRole(std::string role_text)
+{
+    Player::Role role;
+    if (role_text == "GK")
+    {
+        role = Player::Role::GK;
+    }
+    else if (role_text == "Baller")
+    {
+        role = Player::Role::BALLER;
+    }
+    else
+    {
+        role = Player::Role::BALLER;
+    }
+    return role;
 }
 std::string Player::getRoleText() const
 {
-	std::string role_text = "";
-	switch (m_config.role)
-	{
-	case Player::Role::GK:
-	{
-		role_text = "GK";
-		break;
-	}
-	case Player::Role::BALLER:
-	{
-		role_text = "Baller";
-		break;
-	}
-	default:
-		role_text = "undentified";
-		break;
-	}
-	return role_text;
+    std::string role_text = "";
+    switch (m_config.role)
+    {
+        case Player::Role::GK:
+        {
+            role_text = "GK";
+            break;
+        }
+        case Player::Role::BALLER:
+        {
+            role_text = "Baller";
+            break;
+        }
+        default:
+            role_text = "undentified";
+            break;
+    }
+    return role_text;
 }
 
-std::string Player::getName() const {
-	return m_config.name;
-}
-double Player::getRate()const {
-	return m_config.rate;
-}
-uint16_t Player::getId()const {
-	return m_config.id;
-}
-Player::Role Player::getRole() const 
+std::string Player::getName() const
 {
-	return m_config.role;
+    return m_config.name;
 }
-void Player::setId(uint16_t id) {
-	m_config.id = id;
+double Player::getRate() const
+{
+    return m_config.rate;
 }
-void Player::setName(const std::string & name)  {
-	m_config.name = name;
+uint16_t Player::getId() const
+{
+    return m_config.id;
 }
-void Player::setRate(double rate)  {
-	m_config.rate = rate;
+Player::Role Player::getRole() const
+{
+    return m_config.role;
+}
+void Player::setId(uint16_t id)
+{
+    m_config.id = id;
+}
+void Player::setName(const std::string& name)
+{
+    m_config.name = name;
+}
+void Player::setRate(double rate)
+{
+    m_config.rate = rate;
 }
 void Player::setRole(std::string role_text)
 {
-	m_config.role = toPlayerRole(role_text);
+    m_config.role = toPlayerRole(role_text);
 }
-void Player::setRole(Player::Role role) 
+void Player::setRole(Player::Role role)
 {
-	m_config.role = role;
+    m_config.role = role;
 }
