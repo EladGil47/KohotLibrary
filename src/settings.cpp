@@ -1,54 +1,72 @@
 #include "settings.hpp"
+#include <filesystem>
 #include <fstream>
+#include <iostream>
 
 namespace SettingsKeys
 {
 static constexpr const char* TEAMS_RANGE           = "TeamsRange";
 static constexpr const char* PLAYERS_IN_TEAM_RANGE = "PlayersInTeamRange";
-
 } // namespace SettingsKeys
+
+static const std::vector<int32_t> PLAYERS_IN_TEAM_RANGE_DEFAULT{1, 11};
+static const std::vector<int32_t> TEAMS_RANGE_DEFAULT{2, 4};
+
+nlohmann::json       Settings::m_settings_json;
+std::vector<int32_t> Settings::m_players_in_team_range = PLAYERS_IN_TEAM_RANGE_DEFAULT;
+std::vector<int32_t> Settings::m_teams_range           = TEAMS_RANGE_DEFAULT;
 
 Settings::Settings(const std::string& file_path)
     : m_file_path(std::filesystem::absolute(file_path))
 {
-    m_use_deafult = !load();
+    load();
 }
 
-bool Settings::load()
+void Settings::load()
 {
     if (std::filesystem::exists(m_file_path))
     {
         std::ifstream file(m_file_path);
         if (file.is_open())
         {
-            file >> m_settings_json;
-            file.close();
-            return true;
+            try
+            {
+                file >> m_settings_json;
+            }
+            catch (const std::exception& e)
+            {
+                std::cerr << "Error parsing JSON: " << e.what() << std::endl;
+            }
+        }
+        else
+        {
+            std::cerr << "Unable to open file: " << m_file_path << std::endl;
         }
     }
-    return false;
+    initTeamRange();
+    initPlayersInTeamRange();
 }
 
-bool Settings::save() const
+void Settings::initTeamRange()
 {
-    std::ofstream file(m_file_path);
-    if (file.is_open())
+    try
     {
-        file << m_settings_json.dump(4); // Pretty print with 4 spaces indentation
-        file.close();
-        return true;
+        m_teams_range = m_settings_json.at(SettingsKeys::TEAMS_RANGE).get<std::vector<int32_t>>();
     }
-    return false;
+    catch (const nlohmann::json::exception& e)
+    {
+        std::cerr << "Error accessing 'TeamsRange' in JSON: " << e.what() << std::endl;
+    }
 }
 
-std::vector<int32_t> Settings::getTeamRange() const
+void Settings::initPlayersInTeamRange()
 {
-    std::vector<int32_t> teams_range = m_use_deafult ? m_teams_range : m_settings_json[SettingsKeys::TEAMS_RANGE].get<std::vector<int32_t>>();
-    return teams_range;
-}
-
-std::vector<int32_t> Settings::getPlayersInTeamRange() const
-{
-    std::vector<int32_t> players_in_team_range = m_use_deafult ? m_players_in_team_range : m_settings_json[SettingsKeys::PLAYERS_IN_TEAM_RANGE].get<std::vector<int32_t>>();
-    return players_in_team_range;
+    try
+    {
+        m_players_in_team_range = m_settings_json.at(SettingsKeys::PLAYERS_IN_TEAM_RANGE).get<std::vector<int32_t>>();
+    }
+    catch (const nlohmann::json::exception& e)
+    {
+        std::cerr << "Error accessing 'PlayersInTeamRange' in JSON: " << e.what() << std::endl;
+    }
 }

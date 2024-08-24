@@ -10,21 +10,33 @@ class Settings
 {
 public:
     Settings(const std::string& file_path);
-    bool save() const;
 
-    std::vector<int32_t> getTeamRange() const;
-    std::vector<int32_t> getPlayersInTeamRange() const;
+    static void initTeamRange();
+    static void initPlayersInTeamRange();
+
+    // Accessor methods
+    static const std::vector<int32_t>& getPlayersInTeamRange()
+    {
+        return m_players_in_team_range;
+    }
+    static const std::vector<int32_t>& getTeamsRange()
+    {
+        return m_teams_range;
+    }
+    static const nlohmann::json& getSettingsJson()
+    {
+        return m_settings_json;
+    }
 
 private:
-    bool load();
+    void load();
+    bool save() const;
 
-    bool m_use_deafult;
-
+    static nlohmann::json m_settings_json;
     std::filesystem::path m_file_path;
-    nlohmann::json        m_settings_json;
 
-    std::vector<int32_t> m_teams_range{2, 4};
-    std::vector<int32_t> m_players_in_team_range{1, 11};
+    static std::vector<int32_t> m_teams_range;
+    static std::vector<int32_t> m_players_in_team_range;
 };
 
 #endif // KOHOT_LIBRARY_SETTINGS_HPP

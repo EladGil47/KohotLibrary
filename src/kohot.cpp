@@ -17,9 +17,8 @@ static constexpr const char* ROLE            = "Role";
 
 Kohot::Kohot()
 {
-    m_groups_collection = std::make_shared<GroupsCollection>();
     loadGroups();
-    m_settings = std::make_shared<Settings>(m_app_path.getSettingsFilePath());
+    auto m_settings = Settings(m_app_path.getSettingsFilePath());
 }
 
 std::shared_ptr<GroupsCollection> Kohot::getGroupsCollection()
@@ -27,13 +26,10 @@ std::shared_ptr<GroupsCollection> Kohot::getGroupsCollection()
     return m_groups_collection;
 }
 
-std::shared_ptr<Settings> Kohot::getSettings()
-{
-    return m_settings;
-}
-
 void Kohot::loadGroups()
 {
+    m_groups_collection = std::make_shared<GroupsCollection>();
+
     nlohmann::json groups_data;
     JsonUtils::deserializeToJson(m_app_path.getGroupsFilePath().c_str(), groups_data);
 
