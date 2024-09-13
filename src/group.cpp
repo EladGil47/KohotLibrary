@@ -38,19 +38,39 @@ void Group::deletePlayer(size_t index)
     m_players_collection.deleteItem(index);
 }
 
+void Group::addPlayerToCollection(std::shared_ptr<Player> player)
+{
+    m_players_collection.addItem(player);
+}
+
+void Group::deletePlayerFromCollectionById(uint16_t id)
+{
+    m_players_collection.deleteItem(id);
+}
+
 size_t Group::getNumOfPlayers()
 {
     return m_players_collection.getSize();
 }
 
-PlayersCollection& Group::getPlayersCollectionRef()
+PlayersCollection Group::getPlayersCollection()
 {
     return m_players_collection;
 }
 
-PlayersCollection Group::getPlayersCollection()
+void Group::setNameById(uint16_t id, const std::string& name)
 {
-    return m_players_collection;
+    m_players_collection.getItem(static_cast<size_t>(id))->setName(name);
+}
+
+void Group::setRateById(uint16_t id, double rate)
+{
+    m_players_collection.getItem(static_cast<size_t>(id))->setRate(rate);
+}
+
+void Group::setIdById(uint16_t id, uint16_t new_id)
+{
+    m_players_collection.getItem(static_cast<size_t>(id))->setId(new_id);
 }
 
 void Group::changeName()

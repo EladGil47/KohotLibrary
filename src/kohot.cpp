@@ -52,7 +52,7 @@ void Kohot::loadGroups()
                 player[groups_json_keys::RATE].get<double>(),
                 Player::toPlayerRole(player[groups_json_keys::ROLE].get<std::string>())};
             std::shared_ptr<Player> additional_player = std::make_shared<Player>(player_config);
-            group_ptr->getPlayersCollectionRef().addItem(additional_player);
+            group_ptr->addPlayerToCollection(additional_player);
         }
         m_groups_collection->addItem(group_ptr);
     }
@@ -79,7 +79,7 @@ void Kohot::saveGroups()
         players_array                 = nlohmann::json::array();
 
         uint16_t player_index = 0;
-        for (std::shared_ptr<Player> player : group->getPlayersCollectionRef().getCollection())
+        for (std::shared_ptr<Player> player : group->getPlayersCollection().getCollection())
         {
             nlohmann::json& json_player = players_array[player_index];
 
