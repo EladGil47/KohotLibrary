@@ -16,11 +16,11 @@ Player::Player(const Player::Config& config)
 Player::Role Player::toPlayerRole(std::string role_text)
 {
     Player::Role role;
-    if (role_text == "GK")
+    if (role_text == GK)
     {
         role = Player::Role::GK;
     }
-    else if (role_text == "Baller")
+    else if (role_text == BALLER)
     {
         role = Player::Role::BALLER;
     }
@@ -37,12 +37,12 @@ std::string Player::getRoleText() const
     {
         case Player::Role::GK:
         {
-            role_text = "GK";
+            role_text = GK;
             break;
         }
         case Player::Role::BALLER:
         {
-            role_text = "Baller";
+            role_text = BALLER;
             break;
         }
         default:

@@ -37,6 +37,9 @@ public:
 
 private:
     Config m_config;
+
+    static constexpr const char* BALLER = "Baller";
+    static constexpr const char* GK     = "GK";
 };
 
 #endif //KOHOT_PLAYER_HPP
