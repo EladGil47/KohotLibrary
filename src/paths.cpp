@@ -13,17 +13,17 @@ AppPaths::AppPaths()
 
 void AppPaths::setGroupsFilePath(const std::string& relative_path)
 {
-    m_groups_file = std::filesystem::absolute(relative_path);
+    m_groups_file = std::filesystem::absolute(relative_path).string();
 }
 
 void AppPaths::setTeamsFilePath(const std::string& relative_path)
 {
-    m_teams_file = std::filesystem::absolute(relative_path);
+    m_teams_file = std::filesystem::absolute(relative_path).string();
 }
 
 void AppPaths::setSettingsFilePath(const std::string& relative_path)
 {
-    m_settings_file = std::filesystem::absolute(relative_path);
+    m_settings_file = std::filesystem::absolute(relative_path).string();
 }
 
 std::string AppPaths::getGroupsFilePath() const
@@ -45,7 +45,7 @@ void AppPaths::setDefaultPaths()
 {
     std::filesystem::path current_path = std::filesystem::current_path();
 
-    m_groups_file   = std::filesystem::absolute(current_path / GROUPS_JSON);
-    m_teams_file    = std::filesystem::absolute(current_path / TEAMS_JSON);
-    m_settings_file = std::filesystem::absolute(current_path / SETTINGS_JSON);
+    m_groups_file   = std::filesystem::absolute(current_path / GROUPS_JSON).string();
+    m_teams_file    = std::filesystem::absolute(current_path / TEAMS_JSON).string();
+    m_settings_file = std::filesystem::absolute(current_path / SETTINGS_JSON).string();
 }
